@@ -1,14 +1,21 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppComponent } from './app.component';
+import { CommunityComponent } from './community/community.component';
+import {CommunityModule} from "./community/community.module";
+import {RouterOutlet} from "@angular/router";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CommunityComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    CommunityModule,
+    RouterOutlet,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
