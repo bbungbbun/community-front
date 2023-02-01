@@ -5,6 +5,7 @@ import { CommunityComponent } from './community/community.component';
 import {CommunityModule} from "./community/community.module";
 import {RouterOutlet} from "@angular/router";
 import {FormsModule} from "@angular/forms";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import {FormsModule} from "@angular/forms";
     CommunityModule,
     RouterOutlet,
     FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

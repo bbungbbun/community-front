@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-
 @Component({
   selector: 'app-write',
   templateUrl: './write.component.html',
@@ -8,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WriteComponent implements OnInit {
 
+  textarea = document.getElementById("textarea")
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
+
+
 
 }

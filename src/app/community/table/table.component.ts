@@ -1,24 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {environment} from "../../../environments/environment";
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface Board {
+  id: number;
+  title: string;
+  content: string;
+  updated_at: Date;
+  created_at: Date;
 }
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  // {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  // {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  // {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  // {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  // {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  // {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  // {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  // {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
 
 
 @Component({
@@ -29,14 +19,35 @@ const ELEMENT_DATA: PeriodicElement[] = [
 
 export class TableComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private httpClient: HttpClient
+  ) {}
 
   ngOnInit(): void {
+    this.getAllBoard();
   }
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-  clickedRows = new Set<PeriodicElement>();
+  displayedColumns: string[] = ['id', 'title', 'updatedAt', 'createdAt'];
+  dataSource: any = [];
+  board: Board[] | undefined;
+  clickedRows = new Set<Board>();
+
+  /**
+   * find~~~ 특정 1개 검색
+   * findALL~~~ 전체 검색
+   * findBy~~ ex: findById << 이름에 해당 하는 것 검색
+   * get 하나 가져오기
+   * getALL 리스트로 다 가져오기
+   * */
+  getAllBoard(): void {
+    this.httpClient.get(environment.serverAddress + `/board`, {}).subscribe({
+      next: (data: any) => {
+        this.board = data;
+        console.log('this.board : ', data);
+        this.dataSource = this.board;
+      }
+    });
+  }
 }
 
 
