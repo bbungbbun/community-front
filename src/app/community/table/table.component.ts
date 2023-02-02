@@ -76,40 +76,15 @@ export class TableComponent implements OnInit {
     });
   }
 
-  deleteBoard(id: number): void{
-    this.httpClient
-      .delete(environment.serverAddress + `/delete?id=${id}`,{})
-      .subscribe({
-      next: (data: any) => {
-        console.log('deleted board', data);
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    });
-  }
-
-
-
   clickRow(row: any) {
     this.getBoard(row.id);
     this.nowBoardId = row.id;
   }
 
   openDialog(data: any) {
-    const dialogRef = this.dialog.open(BoardModalComponent, {
+    this.dialog.open(BoardModalComponent, {
       data: data,
       panelClass: 'test',
-    });
-
-    const boardId = data[0].id;
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      if(result){
-        this.deleteBoard(boardId);
-        location.href = '/table';
-      }
     });
   }
 }

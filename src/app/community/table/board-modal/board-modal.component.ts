@@ -2,6 +2,8 @@ import {Component, Inject, Input, OnInit} from '@angular/core';
 import {MAT_DIALOG_DATA} from "@angular/material/dialog";
 import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {MatDialog} from '@angular/material/dialog';
+import {ConfirmDeleteModalComponent} from "../confirm-delete-modal/confirm-delete-modal.component";
 
 @Component({
   selector: 'app-board-modal',
@@ -14,9 +16,12 @@ export class BoardModalComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpClient: HttpClient,
+    public dialog: MatDialog
   ) {
     this.modalData = data
   }
+
+
 
   title : any;
   content : any;
@@ -33,7 +38,7 @@ export class BoardModalComponent implements OnInit {
     this.content = content;
   }
 
-  patchBoard(id: number, req :any): void{
+  patchBoard(req :any): void{
     this.httpClient
       .patch(environment.serverAddress + `/modify`,req)
       .subscribe({
@@ -45,6 +50,20 @@ export class BoardModalComponent implements OnInit {
         }
       });
   }
+
+  deleteBoard(id: number): void{
+    this.httpClient
+      .delete(environment.serverAddress + `/delete?id=${id}`,{})
+      .subscribe({
+        next: (data: any) => {
+          console.log('deleted board', data);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
+  }
+
 
   toggleModifyMode(){
     if(this.modify.isOn){
@@ -61,9 +80,24 @@ export class BoardModalComponent implements OnInit {
       title : this.title,
       content: this.content
     }
-    this.patchBoard(this.modalData.id, req);
+    this.patchBoard(req);
   }
 
 
+  confirmDelete(): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {
+      width: '250px',
+    });
+
+    const boardId = this.modalData[0].id;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.deleteBoard(boardId);
+        location.href = '/table';
+      }
+    });
+  }
 
 }

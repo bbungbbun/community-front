@@ -38,5 +38,4 @@ export class WriteComponent implements OnInit {
     location.href = '/table';
   }
 
-
 }

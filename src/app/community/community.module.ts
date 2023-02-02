@@ -13,6 +13,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from '@angular/material/form-field';
+import { ConfirmDeleteModalComponent } from './table/confirm-delete-modal/confirm-delete-modal.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
       WriteComponent,
       HeaderComponent,
       BoardModalComponent,
+      ConfirmDeleteModalComponent,
     ],
   exports: [
     TableComponent,
