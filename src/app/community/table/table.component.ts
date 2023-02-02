@@ -35,18 +35,23 @@ export class TableComponent implements OnInit {
   displayedColumns: string[] = ['id', 'title', 'updatedAt', 'createdAt'];
   dataSource: any = [];
   board: Board[] | undefined;
-  clickedRows = new Set<Board>();
-  modalData = '';
+
   nowBoardId :number |undefined;
 
 
   /**
+   * 함수명 규칙
    * find~~~ 특정 1개 검색
    * findALL~~~ 전체 검색
    * findBy~~ ex: findById << 이름에 해당 하는 것 검색
    * get 하나 가져오기
    * getALL 리스트로 다 가져오기
    * */
+
+  /**
+   * @description 글 목록 조회
+   */
+
   getAllBoard(): void {
     this.httpClient
       .get(environment.serverAddress + `/getAll`, {})
@@ -62,6 +67,10 @@ export class TableComponent implements OnInit {
     });
   }
 
+  /**
+   * @description 글 조회
+   */
+
   getBoard(id: number): void {
     this.httpClient
       .get(environment.serverAddress + `/getBoard?id=${id}`, {})
@@ -76,10 +85,18 @@ export class TableComponent implements OnInit {
     });
   }
 
+  /**
+   * @description 글 클릭
+   */
+
   clickRow(row: any) {
     this.getBoard(row.id);
     this.nowBoardId = row.id;
   }
+
+  /**
+   * @description 모달창 열기
+   */
 
   openDialog(data: any) {
     this.dialog.open(BoardModalComponent, {

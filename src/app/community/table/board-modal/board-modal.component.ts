@@ -12,7 +12,6 @@ import {ConfirmDeleteModalComponent} from "../confirm-delete-modal/confirm-delet
 })
 export class BoardModalComponent implements OnInit {
 
-
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     private httpClient: HttpClient,
@@ -20,8 +19,6 @@ export class BoardModalComponent implements OnInit {
   ) {
     this.modalData = data
   }
-
-
 
   title : any;
   content : any;
@@ -38,19 +35,9 @@ export class BoardModalComponent implements OnInit {
     this.content = content;
   }
 
-  patchBoard(req :any): void{
-    this.httpClient
-      .patch(environment.serverAddress + `/modify`,req)
-      .subscribe({
-        next: (data: any) => {
-          console.log('patchBoard : ', data);
-        },
-        error: (err) => {
-          console.error(err);
-        }
-      });
-  }
-
+  /**
+   * @description 글 삭제
+   */
   deleteBoard(id: number): void{
     this.httpClient
       .delete(environment.serverAddress + `/delete?id=${id}`,{})
@@ -64,15 +51,9 @@ export class BoardModalComponent implements OnInit {
       });
   }
 
-
-  toggleModifyMode(){
-    if(this.modify.isOn){
-      this.modifyBoard();
-      location.href = '/table';
-    } else {
-      this.modify.isOn = true;
-    }
-  }
+  /**
+   * @description 글 수정
+   */
 
   modifyBoard(){
     const req = {
@@ -83,6 +64,34 @@ export class BoardModalComponent implements OnInit {
     this.patchBoard(req);
   }
 
+  patchBoard(req :any): void{
+    this.httpClient
+      .patch(environment.serverAddress + `/modify`,req)
+      .subscribe({
+        next: (data: any) => {
+          console.log('patchBoard : ', data);
+        },
+        error: (err) => {
+          console.error(err);
+        }
+      });
+  }
+
+  toggleModifyMode(){
+    if(this.modify.isOn){
+      this.modifyBoard();
+      location.href = '/table';
+    } else {
+      this.modify.isOn = true;
+    }
+  }
+
+
+
+
+  /**
+   * @description 글 삭제 확인 모달 열기
+   */
 
   confirmDelete(): void {
     const dialogRef = this.dialog.open(ConfirmDeleteModalComponent, {

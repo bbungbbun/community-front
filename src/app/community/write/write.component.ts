@@ -20,6 +20,10 @@ export class WriteComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * @description 글 등록
+   */
+
   postWrite(): void {
     const req = {
       title : this.title,
