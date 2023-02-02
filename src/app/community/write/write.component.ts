@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 
+
 @Component({
   selector: 'app-write',
   templateUrl: './write.component.html',
@@ -11,6 +12,7 @@ export class WriteComponent implements OnInit {
 
   title : string = ''
   content : string = ''
+
   constructor(
     private httpClient: HttpClient
   ) { }
@@ -29,6 +31,11 @@ export class WriteComponent implements OnInit {
         console.log('data', data)
       }
     });
+  }
+
+  confirmWrite(){
+    this.postWrite()
+    location.href = '/table';
   }
 
 

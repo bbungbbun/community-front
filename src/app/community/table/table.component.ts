@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, OnChanges} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
+import {MatDialog} from '@angular/material/dialog';
+import {BoardModalComponent} from "./board-modal/board-modal.component";
 
 export interface Board {
   id: number;
@@ -20,17 +22,23 @@ export interface Board {
 export class TableComponent implements OnInit {
 
   constructor(
-    private httpClient: HttpClient
-  ) {}
+    private httpClient: HttpClient,
+    public dialog: MatDialog
+  ) {
+  }
 
   ngOnInit(): void {
     this.getAllBoard();
   }
 
+
   displayedColumns: string[] = ['id', 'title', 'updatedAt', 'createdAt'];
   dataSource: any = [];
   board: Board[] | undefined;
   clickedRows = new Set<Board>();
+  modalData = '';
+  nowBoardId :number |undefined;
+
 
   /**
    * find~~~ 특정 1개 검색
@@ -40,15 +48,70 @@ export class TableComponent implements OnInit {
    * getALL 리스트로 다 가져오기
    * */
   getAllBoard(): void {
-    this.httpClient.get(environment.serverAddress + `/board`, {}).subscribe({
+    this.httpClient
+      .get(environment.serverAddress + `/getAll`, {})
+      .subscribe({
       next: (data: any) => {
         this.board = data;
         console.log('this.board : ', data);
         this.dataSource = this.board;
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  getBoard(id: number): void {
+    this.httpClient
+      .get(environment.serverAddress + `/getBoard?id=${id}`, {})
+      .subscribe({
+      next: (data: any) => {
+        console.log('getBoard : ', data);
+        this.openDialog(data);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  deleteBoard(id: number): void{
+    this.httpClient
+      .delete(environment.serverAddress + `/delete?id=${id}`,{})
+      .subscribe({
+      next: (data: any) => {
+        console.log('deleted board', data);
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+
+
+  clickRow(row: any) {
+    this.getBoard(row.id);
+    this.nowBoardId = row.id;
+  }
+
+  openDialog(data: any) {
+    const dialogRef = this.dialog.open(BoardModalComponent, {
+      data: data,
+      panelClass: 'test',
+    });
+
+    const boardId = data[0].id;
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if(result){
+        this.deleteBoard(boardId);
+        location.href = '/table';
       }
     });
   }
 }
-
 
 

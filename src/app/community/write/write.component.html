@@ -1,7 +1,18 @@
 <div class="write-component">
-  <input [(ngModel)]="title" type="text">
-  <textarea id="textarea" [(ngModel)]="content"></textarea>
-  <button class="button-submit" (click)="postWrite()">글 작성 완료</button>
-  <div>{{title}}</div>
-  <div>{{content}}</div>
+  <div class="example-form">
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input matInput placeholder="제목을 입력하세요"[(ngModel)]="title">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Content</mat-label>
+      <textarea matInput
+                placeholder="내용을 입력하세요"
+                class="content-input"
+                [(ngModel)]="content"
+      ></textarea>
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="button-submit"
+            (click)="confirmWrite()">등록</button>
+  </div>
 </div>
