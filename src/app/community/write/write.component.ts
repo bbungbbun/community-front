@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-write',
@@ -7,14 +9,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WriteComponent implements OnInit {
 
-  textarea = document.getElementById("textarea")
-
-  constructor() { }
+  title : string = ''
+  content : string = ''
+  constructor(
+    private httpClient: HttpClient
+  ) { }
 
   ngOnInit(): void {
-
   }
 
+  postWrite(): void {
+    const req = {
+      title : this.title,
+      content : this.content
+    }
+
+    this.httpClient.post(environment.serverAddress + `/write`, req).subscribe({
+      next: (data: any) => {
+        console.log('data', data)
+      }
+    });
+  }
 
 
 }

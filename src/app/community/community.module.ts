@@ -7,6 +7,7 @@ import {RouterModule, Routes} from "@angular/router";
 import { WriteComponent } from './write/write.component';
 import { HeaderComponent } from './header/header.component';
 import { BrowserModule } from '@angular/platform-browser';
+import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
@@ -33,10 +34,11 @@ const routes: Routes = [
     HeaderComponent,
   ],
     imports: [
-      BrowserModule,
-      RouterModule.forRoot([...routes]),
-      CommonModule,
-      MatTableModule
+        BrowserModule,
+        RouterModule.forRoot([...routes]),
+        CommonModule,
+        MatTableModule,
+        FormsModule
     ]
 })
 export class CommunityModule { }

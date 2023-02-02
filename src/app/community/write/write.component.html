@@ -1,4 +1,7 @@
 <div class="write-component">
-<!--  <input type="file">-->
-  <textarea id="textarea"></textarea>
+  <input [(ngModel)]="title" type="text">
+  <textarea id="textarea" [(ngModel)]="content"></textarea>
+  <button class="button-submit" (click)="postWrite()">글 작성 완료</button>
+  <div>{{title}}</div>
+  <div>{{content}}</div>
 </div>
