@@ -22,6 +22,8 @@
     "@angular/router": "^14.2.0",
     "@ckeditor/ckeditor5-angular": "^5.0.0",
     "@ckeditor/ckeditor5-build-classic": "^36.0.0",
+    "@ckeditor/ckeditor5-image": "^36.0.0",
+    "@ckeditor/ckeditor5-upload": "^36.0.0",
     "@ckeditor/ckeditor5-watchdog": "^36.0.0",
     "ckeditor5": "^36.0.0",
     "rxjs": "~7.5.0",

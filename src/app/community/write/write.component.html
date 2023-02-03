@@ -4,9 +4,39 @@
       <mat-label>Title</mat-label>
       <input matInput placeholder="제목을 입력하세요"[(ngModel)]="title">
     </mat-form-field>
-    <ckeditor [editor]="Editor" [(ngModel)]="content"></ckeditor>
+    <ckeditor class="content-input"
+              id="editor"
+              [editor]="Editor"
+              [(ngModel)]="content"></ckeditor>
     <button mat-raised-button color="primary" class="button-submit"
             (click)="confirmWrite()">등록</button>
   </div>
 </div>
-<div class="result" [innerHTML]="content"></div>
+
+  <input type="file" name='userfile' (change)="onChange($event)">
+  <img [src]="imgSrc" alt="">
+  <button class="file-upload" (click)="Upload()">업로드</button>
+
+<div class="result">
+  {{imgSrc}}
+</div>
+
+<div class="text-center">
+  <input class="form-control" type="file" (change)="onChange($event)" />
+  <br />
+  <button (click)="onUpload()" class="btn btn-success">Upload</button>
+</div>
+
+<!-- Shareable short link of uoloaded file -->
+<div class="container text-center jumbotron" *ngIf="shortLink">
+  <h2>Visit Here</h2>
+  <a href="{{ shortLink }}">{{ shortLink }}</a>
+</div>
+
+<!--Flag variable is used here-->
+<div class="container" *ngIf="loading">
+  <h3>Loading ...</h3>
+</div>
+
+
+<!--<div class="result" [innerHTML]="content"></div>-->
