@@ -27,7 +27,6 @@ export class BoardModalComponent implements OnInit {
     isOn : false,
   }
 
-
   ngOnInit(): void {
     const title = this.modalData[0].title;
     const content = this.modalData[0].content;

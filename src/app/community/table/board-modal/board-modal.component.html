@@ -1,9 +1,8 @@
 <div class="test">
   <div class="modify-off" *ngIf="!modify.isOn">
-    <h1 mat-dialog-title>{{data[0].title}}</h1>
-    <mat-dialog-content class="mat-typography">
-      <pre>{{data[0].content}}</pre>
-    </mat-dialog-content>
+    <h1 mat-dialog-title>{{title}}</h1>
+<!--    <div class="content-body" [innerHTML]="content"></div>-->
+    <mat-dialog-content class="mat-typography" [innerHTML]="content"></mat-dialog-content>
   </div>
 
   <div class="modify-on" *ngIf="modify.isOn">

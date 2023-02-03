@@ -4,15 +4,9 @@
       <mat-label>Title</mat-label>
       <input matInput placeholder="제목을 입력하세요"[(ngModel)]="title">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <mat-label>Content</mat-label>
-      <textarea matInput
-                placeholder="내용을 입력하세요"
-                class="content-input"
-                [(ngModel)]="content"
-      ></textarea>
-    </mat-form-field>
+    <ckeditor [editor]="Editor" [(ngModel)]="content"></ckeditor>
     <button mat-raised-button color="primary" class="button-submit"
             (click)="confirmWrite()">등록</button>
   </div>
 </div>
+<div class="result" [innerHTML]="content"></div>

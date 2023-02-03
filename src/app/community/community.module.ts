@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ConfirmDeleteModalComponent } from './table/confirm-delete-modal/confirm-delete-modal.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 const routes: Routes = [
   {
@@ -51,6 +52,7 @@ const routes: Routes = [
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
+    CKEditorModule
   ]
 })
 export class CommunityModule { }

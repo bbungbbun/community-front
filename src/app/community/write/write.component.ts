@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
-
+// @ts-ignore
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-write',
@@ -12,13 +13,18 @@ export class WriteComponent implements OnInit {
 
   title : string = ''
   content : string = ''
+  public Editor = ClassicEditor;
 
   constructor(
-    private httpClient: HttpClient
-  ) { }
+    private httpClient: HttpClient,
 
-  ngOnInit(): void {
+  ) {
+
   }
+
+  ngOnInit(): void {}
+
+  result = document.querySelector(".result")
 
   /**
    * @description 글 등록
