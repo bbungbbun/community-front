@@ -35,20 +35,15 @@ export class WriteComponent implements OnInit {
       return;
     }
 
-    this.upload(files);
+    this.postUpload(files);
   }
 
-
-  upload(files: FileList ) {
+  postUpload(files: FileList ) {
     const formData = new FormData();
-
     console.log('files : ', files);
-
     for (let i = 0; i < files.length; i++) {
       formData.append('upload', files[i]);
     }
-
-    // 여기 넘기는 형식을 잘 맞춰서 multer가 원하는 형식으로 넘겨야져 ㅇㅋ?
 
     this.httpClient.post(environment.serverAddress + `/upload`, formData).subscribe( {
       next: (data: any) => {
