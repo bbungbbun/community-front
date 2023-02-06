@@ -13,30 +13,5 @@
   </div>
 </div>
 
-  <input type="file" name='userfile' (change)="onChange($event)">
-  <img [src]="imgSrc" alt="">
-  <button class="file-upload" (click)="Upload()">업로드</button>
-
-<div class="result">
-  {{imgSrc}}
-</div>
-
-<div class="text-center">
-  <input class="form-control" type="file" (change)="onChange($event)" />
-  <br />
-  <button (click)="onUpload()" class="btn btn-success">Upload</button>
-</div>
-
-<!-- Shareable short link of uoloaded file -->
-<div class="container text-center jumbotron" *ngIf="shortLink">
-  <h2>Visit Here</h2>
-  <a href="{{ shortLink }}">{{ shortLink }}</a>
-</div>
-
-<!--Flag variable is used here-->
-<div class="container" *ngIf="loading">
-  <h3>Loading ...</h3>
-</div>
-
-
-<!--<div class="result" [innerHTML]="content"></div>-->
+<input type="file" (change)="onChange(fileInput.files)" #fileInput>
+<!--<button type="submit" class="file-upload" (click)="upload()">업로드</button>-->

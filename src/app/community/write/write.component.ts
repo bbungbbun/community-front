@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {HttpClient} from "@angular/common/http";
-import { FileUploadService } from '../../file-upload.servise';
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 
 // @ts-ignore
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -22,51 +21,44 @@ export class WriteComponent implements OnInit {
 
   constructor(
     private httpClient: HttpClient,
-    private fileUploadService: FileUploadService
   ) {}
 
   ngOnInit(): void {
 
   }
 
-
-  shortLink: string = ''; // Variable to store shortLink from api response
-  loading: boolean = false; // Flag variable
-  file: any = null; // Variable to store file to Upload
+  file: FileList | undefined;
 
   // On file Select
-  onChange(event : any) {
-    this.file = event.target.files[0];
-    console.log('this.file', this.file)
-  }
-
-  // OnClick of button Upload
-  onUpload() {
-    if (this.file) {
-      this.loading = !this.loading;
-      this.fileUploadService.upload(this.file).subscribe((event: any) => {
-        if (typeof event === 'object') {
-          // Short link via api response
-          this.shortLink = event.link;
-          this.loading = false; // Flag variable
-        }
-      });
-    }
-  }
-
-  Upload() {
-    const req = {
-      file : this.file
+  onChange(files: FileList | undefined | null) {
+    if (!files) {
+      return;
     }
 
-    this.httpClient.post(environment.serverAddress + `/upload`, req).subscribe( {
+    this.upload(files);
+  }
+
+
+  upload(files: FileList ) {
+    const formData = new FormData();
+
+    console.log('files : ', files);
+
+    for (let i = 0; i < files.length; i++) {
+      formData.append('upload', files[i]);
+    }
+
+    // 여기 넘기는 형식을 잘 맞춰서 multer가 원하는 형식으로 넘겨야져 ㅇㅋ?
+
+    this.httpClient.post(environment.serverAddress + `/upload`, formData).subscribe( {
       next: (data: any) => {
-        console.log('data', data);
+        console.log('file send res', data);
+      },
+      error: (e) => {
+        console.error('error : ', e);
       }
     });
   }
-
-
 
   /**
    * @description 글 등록
@@ -94,11 +86,6 @@ export class WriteComponent implements OnInit {
    * @description 사진 업로드
    */
 
-  postFile() : void{
-    const req = {
-    }
-
-  }
 
 
 }
