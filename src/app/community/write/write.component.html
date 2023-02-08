@@ -9,13 +9,14 @@
                 id="editor"
                 [editor]="Editor"
                 [(ngModel)]="content"
+                (ready)="onReady($event)"
       ></ckeditor>
     </div>
     <button mat-raised-button color="primary" class="button-submit"
             (click)="confirmWrite()">등록</button>
   </div>
 </div>
-<input type="file" (change)="onChange(fileInput.files)" #fileInput>
-<img [src]="imageSrc" alt="">
+<!--<input type="file" (change)="onChange(fileInput.files)" #fileInput>-->
+<!--<img [src]="imageSrc" alt="">-->
 
 <!--<button type="submit" class="file-upload" (click)="postUpload()">업로드</button>-->

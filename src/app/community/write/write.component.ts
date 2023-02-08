@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-
+import { MyUploadAdapter } from './my-upload-adapter';
 // @ts-ignore
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // // @ts-ignore
 // import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
-// // @ts-ignore
-// import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+// @ts-ignore
+import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
+import * as http from "http";
 
 
 @Component({
@@ -28,7 +29,9 @@ export class WriteComponent implements OnInit {
     private httpClient: HttpClient,
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   /**
    * @description 글 등록
@@ -87,5 +90,11 @@ export class WriteComponent implements OnInit {
   }
 
 
+
+  onReady(editor: ClassicEditor): void {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader :any ) => {
+      return new MyUploadAdapter( loader, this.httpClient);
+    };
+  }
 
 }

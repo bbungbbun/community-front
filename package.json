@@ -23,6 +23,7 @@
     "@ckeditor/ckeditor5-alignment": "^36.0.0",
     "@ckeditor/ckeditor5-angular": "^5.0.0",
     "@ckeditor/ckeditor5-build-classic": "^36.0.0",
+    "@ckeditor/ckeditor5-core": "^36.0.1",
     "@ckeditor/ckeditor5-image": "^36.0.0",
     "@ckeditor/ckeditor5-upload": "^36.0.0",
     "@ckeditor/ckeditor5-watchdog": "^36.0.0",
