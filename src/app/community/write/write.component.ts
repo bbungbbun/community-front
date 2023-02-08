@@ -19,7 +19,8 @@ export class WriteComponent implements OnInit {
 
   title : string = '';
   content : string = '';
-  imgSrc : string = '';
+  fileName : string = '';
+  imageSrc : string = '';
   file: FileList | undefined;
   public Editor = ClassicEditor;
 
@@ -75,6 +76,9 @@ export class WriteComponent implements OnInit {
     this.httpClient.post(environment.serverAddress + `/upload`, formData).subscribe( {
       next: (data: any) => {
         console.log('file send res', data);
+        console.log('file send res', data.sendFiles);
+        this.fileName = data.sendFiles[0].filename;
+        this.imageSrc = `${environment.serverAddress}/upload/${this.fileName}`;
       },
       error: (e) => {
         console.error('error : ', e);
