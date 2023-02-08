@@ -4,12 +4,10 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import { MyUploadAdapter } from './my-upload-adapter';
 // @ts-ignore
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-// // @ts-ignore
-// import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
 // @ts-ignore
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';
-import * as http from "http";
-
+import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
+// @ts-ignore
+import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';import * as http from "http";
 
 @Component({
   selector: 'app-write',
@@ -89,12 +87,18 @@ export class WriteComponent implements OnInit {
     });
   }
 
-
-
   onReady(editor: ClassicEditor): void {
     editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader :any ) => {
-      return new MyUploadAdapter( loader, this.httpClient);
+      const result = new MyUploadAdapter( loader, this.httpClient)
+      console.log('result', result);
+      this.insertPicture(result);
+      return result;
     };
+  }
+
+  insertPicture(result: MyUploadAdapter){
+    const image = '<img src="'+result.imageSrc+'" alt="">'
+    this.content = this.content + image;
   }
 
 }

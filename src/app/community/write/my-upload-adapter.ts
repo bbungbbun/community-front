@@ -3,28 +3,37 @@ import {environment} from "../../../environments/environment";
 
 export class MyUploadAdapter {
   constructor(private loader: any, private http: HttpClient) {
-    this.loader = loader
   }
-  upload() {
-    return this.loader.file.then((file:any) => {
-      const formData = new FormData();
-      console.log('files : ', file);
-      formData.append('upload', file);
 
-      return this.http
-        .post(environment.serverAddress + `/upload`,formData)
-        .subscribe({
+  url : string = environment.serverAddress + '/upload';
+  fileName : string = '';
+  imageSrc : string = '';
+
+  upload() {
+    return this.loader.file
+      .then((file:any) => new Promise( ( resolve, reject ) => {
+        const formData = new FormData();
+        formData.append('upload', file);
+        return this.http
+          .post(this.url ,formData)
+          .subscribe({
             next: (data: any) => {
-              console.log('file send res', data);
+              console.log('upload adapter', data);
+              this.fileName = data.sendFiles[0].filename;
+              this.imageSrc = `${environment.serverAddress}/upload/${this.fileName}`;
+              resolve({default : this.imageSrc})
             },
             error: (e) => {
               console.error('error : ', e);
             }
-        });
-    });
+          });
+    } ));
+
+
   }
   abort() {
     console.error('aborted');
   }
-
 }
+
+
