@@ -1,5 +1,7 @@
 # 게시판 프로젝트
-Angular와 Angular Material를 활용하여 제작한 게시판 프로젝트입니다. 게시판의 정보를 불러오는 API는 별도의 레포지토리에 업로드 되어있습니다.
+Angular와 Angular Material 활용하여 제작한 게시판 프로젝트입니다. 
+에디터 라이브러리인 ck editor를 활용하여 글 편집을 편리하게 할 수 있도록 하였습니다. 
+게시판의 정보를 불러오는 API는 별도의 레포지토리에 업로드 되어있습니다.
 - [게시판 API 레포지토리 바로가기](https://github.com/bbungbbun/community-api)
 
 ## 페이지 목록
@@ -11,3 +13,6 @@ Angular와 Angular Material를 활용하여 제작한 게시판 프로젝트입�
 - Button
 - Form field
 - Table
+
+## 사용된 라이브러리
+- ck editor
