@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {environment} from "../../../environments/environment";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import { MyUploadAdapter } from './my-upload-adapter';
 // @ts-ignore
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 // @ts-ignore
 import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
-// @ts-ignore
-import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleuploadadapter';import * as http from "http";
 
 @Component({
   selector: 'app-write',
