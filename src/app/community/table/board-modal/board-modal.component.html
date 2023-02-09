@@ -24,8 +24,9 @@
   </div>
 
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close >닫기</button>
     <button mat-button (click)="confirmDelete()">삭제</button>
-    <button mat-button (click)="toggleModifyMode()">수정</button>
+    <button mat-button (click)="toggleModifyMode()"
+            class="button-modify">수정</button>
+    <button mat-button mat-dialog-close>닫기</button>
   </mat-dialog-actions>
 </div>
