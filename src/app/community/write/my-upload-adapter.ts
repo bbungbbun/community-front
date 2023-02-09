@@ -1,9 +1,8 @@
-import {HttpClient,} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 
 export class MyUploadAdapter {
-  constructor(private loader: any, private http: HttpClient) {
-  }
+  constructor(private loader: any, private http: HttpClient) {}
 
   url : string = environment.serverAddress + '/upload';
   fileName : string = '';
@@ -14,13 +13,11 @@ export class MyUploadAdapter {
       .then((file:any) => new Promise( ( resolve, reject ) => {
         const formData = new FormData();
         formData.append('upload', file);
-        return this.http
-          .post(this.url ,formData)
-          .subscribe({
+
+        return this.http.post(this.url, formData).subscribe({
             next: (data: any) => {
-              console.log('upload adapter', data);
               this.fileName = data.sendFiles[0].filename;
-              this.imageSrc = `${environment.serverAddress}/upload/${this.fileName}`;
+              this.imageSrc = this.url + `/${this.fileName}`;
               resolve({default : this.imageSrc})
             },
             error: (e) => {
@@ -28,7 +25,6 @@ export class MyUploadAdapter {
             }
           });
     } ));
-
 
   }
   abort() {

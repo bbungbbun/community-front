@@ -27,9 +27,7 @@ export class WriteComponent implements OnInit {
     private httpClient: HttpClient,
   ) {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   /**
    * @description 글 등록
@@ -54,18 +52,28 @@ export class WriteComponent implements OnInit {
   }
 
   /**
-   * @description 사진 입력 감지
+   * @description MyUploadAdapter에서 받은 데이터 반영
+   * */
+
+  onReady(editor: ClassicEditor): void {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader :any ) => {
+      const result = new MyUploadAdapter( loader, this.httpClient)
+      console.log('result', result);
+      return result;
+    };
+  }
+
+
+  /**
+   * @description 사진 입력 감지 -- 테스트용
    */
   onChange(files: FileList | undefined | null) {
-    if (!files) {
-      return;
-    }
-
+    if (!files) return;
     this.postUpload(files);
   }
 
   /**
-   * @description 사진 업로드
+   * @description 사진 업로드 -- 테스트용
    */
   postUpload(files: FileList ) {
     const formData = new FormData();
@@ -76,8 +84,6 @@ export class WriteComponent implements OnInit {
 
     this.httpClient.post(environment.serverAddress + `/upload`, formData).subscribe( {
       next: (data: any) => {
-        console.log('file send res', data);
-        console.log('file send res', data.sendFiles);
         this.fileName = data.sendFiles[0].filename;
         this.imageSrc = `${environment.serverAddress}/upload/${this.fileName}`;
       },
@@ -85,20 +91,6 @@ export class WriteComponent implements OnInit {
         console.error('error : ', e);
       }
     });
-  }
-
-  onReady(editor: ClassicEditor): void {
-    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader :any ) => {
-      const result = new MyUploadAdapter( loader, this.httpClient)
-      console.log('result', result);
-      this.insertPicture(result);
-      return result;
-    };
-  }
-
-  insertPicture(result: MyUploadAdapter){
-    const image = '<img src="'+result.imageSrc+'" alt="">'
-    this.content = this.content + image;
   }
 
 }
