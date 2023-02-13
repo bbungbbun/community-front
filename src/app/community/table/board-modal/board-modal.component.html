@@ -12,14 +12,12 @@
         <input matInput placeholder="제목을 입력하세요"
                [(ngModel)]="title">
       </mat-form-field>
-      <mat-form-field class="example-full-width">
-        <mat-label>Content</mat-label>
-        <textarea matInput
-                  placeholder="내용을 입력하세요"
-                  class="content-input"
-                  [(ngModel)]="content"
-        ></textarea>
-      </mat-form-field>
+      <ckeditor class="content-input"
+                id="editor"
+                [editor]="Editor"
+                [(ngModel)]="content"
+                (ready)="onReady($event)"
+      ></ckeditor>
     </div>
   </div>
 

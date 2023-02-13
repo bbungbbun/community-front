@@ -15,7 +15,6 @@ import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ConfirmDeleteModalComponent } from './table/confirm-delete-modal/confirm-delete-modal.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { EditorComponent } from './editor/editor.component';
 
 const routes: Routes = [
   {
@@ -37,7 +36,6 @@ const routes: Routes = [
       HeaderComponent,
       BoardModalComponent,
       ConfirmDeleteModalComponent,
-      EditorComponent,
     ],
   exports: [
     TableComponent,

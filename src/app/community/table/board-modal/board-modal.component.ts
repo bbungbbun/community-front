@@ -4,6 +4,9 @@ import {environment} from "../../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {MatDialog} from '@angular/material/dialog';
 import {ConfirmDeleteModalComponent} from "../confirm-delete-modal/confirm-delete-modal.component";
+import {MyUploadAdapter} from "../../write/my-upload-adapter";
+// @ts-ignore
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-board-modal',
@@ -11,6 +14,7 @@ import {ConfirmDeleteModalComponent} from "../confirm-delete-modal/confirm-delet
   styleUrls: ['./board-modal.component.scss'],
 })
 export class BoardModalComponent implements OnInit {
+  public Editor = ClassicEditor;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -85,9 +89,6 @@ export class BoardModalComponent implements OnInit {
     }
   }
 
-
-
-
   /**
    * @description 글 삭제 확인 모달 열기
    */
@@ -106,6 +107,19 @@ export class BoardModalComponent implements OnInit {
         location.href = '/table';
       }
     });
+  }
+
+
+  /**
+   * @description MyUploadAdapter에서 받은 데이터 반영
+   * */
+
+  onReady(editor: ClassicEditor): void {
+    editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader :any ) => {
+      const result = new MyUploadAdapter( loader, this.httpClient)
+      console.log('result', result);
+      return result;
+    };
   }
 
 }
