@@ -16,3 +16,5 @@ Angular와 Angular Material 활용하여 제작한 게시판 프로젝트입니�
 
 ## 사용된 라이브러리
 - ck editor
+  - [사용된 컴포넌트 바로가기](https://github.com/bbungbbun/community-front/tree/master/src/app/community/write)
+  - [사용법 설명](https://wanna-be-a.tistory.com/38)
